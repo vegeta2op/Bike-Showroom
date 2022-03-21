@@ -74,7 +74,7 @@ if($_SESSION['username']!='admin'){
       <tbody>
         <?php 
          
-          $sql = "CALL ViewBookings()";
+          $sql = "SELECT * FROM `bookings`";
           $result = mysqli_query($conn, $sql);
           while($row = mysqli_fetch_assoc($result)){
             echo "<tr>
