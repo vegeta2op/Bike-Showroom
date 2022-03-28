@@ -32,7 +32,7 @@ if($_SESSION['username']!='admin'){
 
    body {
           /* The image used */
-          background-image: url("bg-images/9.jpg");
+          background-image: url("ap4.jpg");
 
          /* Full height */
           height: 100%;
@@ -49,19 +49,76 @@ if($_SESSION['username']!='admin'){
           .btn{
             border-radius:25px;
           }
+          .active{
+            background-color: grey;
+            color:whitesmoke;
+          }
+          .card{
+            -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+    background-color: rgb(200, 225, 230, 0.3);
+          }
           
+          #log{
+            color:orange !important;
+          }
+          #log:hover{
+            color: white !important;
+            background-color: orange;
+          }
      </style>
   </head>
   <body>
-  <?php require 'partials/_nav.php' ?>
+  <?php 
+  if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']=true){
+    $loggedin = true;
+}
+else{
+  $loggedin = false;
+}
+echo'<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">CRED</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="welcome_admin.php">Activity <span class="sr-only">(current)</span></a>
+      </li>';
+      if(!$loggedin){
+      echo '<li class="nav-item">
+        <a class="nav-link" href="login.php">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="signup.php">Signup</a>
+      </li>';
+      }
+      if($loggedin){
+      echo'
+      <li class="nav-item">
+        <a class="nav-link" href="admin_profile.php">Your Profile</a>
+      </li>
+      <li  class="nav-item ">
+        <a id="log"  class="nav-link" href="logout.php">Logout</a>
+      </li>';
+      }
+      
+    
+  echo'</div>
+</nav>';
+?>
     <div class="container">
-    <h3 class= "text-center my-4" ><strong>Welcome Admin</strong></h3>
+    <h3 class= "text-center my-4" ><strong><u>Welcome Admin</u></strong></h3>
     <div class="row">
     <div class="col-md-4">
     <div class="card shadow-lg" style="width: 18rem;">
-  <img src="duc.jpg" class="card-img-top" alt="...">
+
+  <img src="images/duc.jpg" class="card-img-top" alt="...">
   <div class="card-body my-2">
-    <h5 class="card-title">Add or Remove Bikes</h5>
+    <h5 class="card-title"><u>Add / Remove Bikes</u></h5>
     <p class="card-text">Add or remove bikes by clicking below.</p>
     <a href="add_removebikes.php" class="btn btn-primary">Add/Remove Bikes</a>
   </div>
@@ -70,14 +127,25 @@ if($_SESSION['username']!='admin'){
 
 <div class="col-md-4">
     <div class="card shadow-lg" style="width: 18rem;">
-  <img src="re.jpg" class="card-img-top" alt="...">
+  <img src="dui.jpg" class="card-img-top" alt="...">
   <div class="card-body my-2">
-    <h5 class="card-title">Add/Remove Company</h5>
+    <h5 class="card-title"><u>Add/Remove Company</u></h5>
     <p class="card-text">Add or remove companies by clicking below.</p>
     <a href="add_removecomp.php" class="btn btn-primary">Add/Remove Company</a>
   </div>
 </div>
 </div>
+<div class="col-md-4">
+    <div class="card shadow-lg" style="width: 18rem;">
+  <img src="bo.jpg" class="card-img-top" alt="...">
+  <div class="card-body my-2">
+    <h5 class="card-title"><u>Customer Bookings</u></h5>
+    <p class="card-text">view all bikes booked by the cuwstomers.</p>
+    <a href="cust_bookings.php" class="btn btn-primary">Customer bookings</a>
+  </div>
+</div>
+</div>
+
 
 
     </div>

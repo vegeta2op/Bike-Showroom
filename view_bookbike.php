@@ -15,7 +15,7 @@ if($_SESSION['username']=='admin'){
  
  include 'partials/_dbconnect.php';
  $book = false;
-     if(isset($_GET['book'])){
+   if(isset($_GET['book'])){
         $sno = $_GET['book'];
         $uname =  $_SESSION['username'];
         $sql = "SELECT * FROM `bikes` WHERE `bike_no`='$sno'";
@@ -26,12 +26,14 @@ if($_SESSION['username']=='admin'){
         $name = $row['bike_name'];
         $price = $row['price'];
         $sql = "INSERT INTO `bookings`(`bike_photo`,`c_username`,`booking_id`,`bike_no`,`bike_name`,`final_price`) VALUES ('$photo','$uname','$bookingid','$sno','$name','$price')";
+        $sql1 = "UPDATE `bikes` set `availability`=`availability`-1 where `bike_no`='$sno'";
+
         $result = mysqli_query($conn, $sql);
+        $result1 = mysqli_query($conn, $sql1);
         if($result){
            $book = true;
-        }
-      }
-     
+           }
+           }
  
 ?>
 
@@ -51,7 +53,7 @@ if($_SESSION['username']=='admin'){
     <style>
      body {
           /* The image used */
-          background-image: url("bg-images/14.jpg");
+          background-image: url("cust.jpg");
 
          /* Full height */
           height: 100%;
@@ -68,11 +70,72 @@ if($_SESSION['username']=='admin'){
    	        width: 230px;
    	        height: 150px;
           }
+          .active{
+            background-color: grey;
+            color:whitesmoke;
+          }
+          
+          #log{
+            color:orange !important;
+          }
+          #log:hover{
+            color: white !important;
+            background-color: orange;
+          }
+          table{
+            -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+    background-color: rgb(200, 225, 230, 0.3);
+          
+      }
+          
           
     </style>
   </head>
   <body>
-  <?php require 'partials/_nav.php' ?>
+  <?php
+
+if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']=true){
+    $loggedin = true;
+}
+else{
+  $loggedin = false;
+}
+echo'<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">CRED</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <a class="nav-link" href="welcome_cust.php">Activity <span class="sr-only">(current)</span></a>
+      </li>';
+      if(!$loggedin){
+      echo '<li class="nav-item">
+        <a class="nav-link" href="login.php">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="signup.php">Signup</a>
+      </li>';
+      }
+      if($loggedin){
+      echo'
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Bikes</a>
+      </li>
+      <li class="nav-item">
+        <a id="log" class="nav-link" href="logout.php">Logout</a>
+      </li>';
+      }
+      
+    
+  echo'</div>
+</nav>';
+
+?>
   <?php
   if($book){
     echo'<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -85,7 +148,7 @@ if($_SESSION['username']=='admin'){
 
  ?>
 
-<h3 class= "text-center my-4" >Available Bike Details</h3>
+<h3 class= "text-center my-4" ><u>Available Bike Details</u></h3>
 <div class="container my-4">
 
 

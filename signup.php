@@ -44,7 +44,7 @@
     
    body {
           /* The image used */
-          background-image: url("bg-images/7.jpg");
+          background-image: url("two.jpg");
 
          /* Full height */
           height: 100%;
@@ -61,15 +61,68 @@
           .btn{
             border-radius:25px;
           }
+          label{
+            color: whitesmoke;
+          }
+          .active{
+            background-color: grey;
+            color:whitesmoke;
+          }
+          input[type=text],input[type=file], .form-control{
+            -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+    background-color: rgb(200, 225, 230, 0.3);
+          }
 
     </style>
   </head>
   <body>
-  <?php require 'partials/_nav.php' ?>
+  <?php
+
+if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']=true){
+    $loggedin = true;
+}
+else{
+  $loggedin = false;
+}
+echo'<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">CRED</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+      </li>';
+      if(!$loggedin){
+      echo '<li class="nav-item">
+        <a class="nav-link" href="login.php">Login</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="signup.php">SignUp</a>
+      </li>';
+      }
+      if($loggedin){
+      echo'<li class="nav-item">
+        <a class="nav-link" href="logout.php">Logout</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="admin_profile.php">Your Profile</a>
+      </li>';
+      }
+      
+    
+  echo'</div>
+</nav>';
+
+?>
   <?php
   if($showAlert){
     echo'<div class="alert alert-success alert-dismissible fade show" role="alert">
-  <strong>Success!</strong> Your account has been created successfully.
+  <strong>Success!</strong> Your account has been created successfully!.
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -87,7 +140,7 @@
  ?>
 
   <div class="container my-4">
-  <h3 class="text-center my-4"><strong>New Customer ? Please Signup</strong></h3>
+  <h3 class="text-center my-4"><strong><u>New Customer ? Please SignUp</u></strong></h3>
   <form action ="/Bike Showroom/signup.php" method = "post" style ="display: flex;
     flex-direction: column;
     align-items:center;

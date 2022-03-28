@@ -18,9 +18,19 @@ $cancel = false;
 if(isset($_GET['cancel'])){
    $bookingid = $_GET['cancel'];
    $uname =  $_SESSION['username'];
+ 	
+  $sql= "SELECT `bike_no` FROM `bookings` where `booking_id`='$bookingid'";
+  $result = mysqli_query($conn, $sql);
+  $row = implode(mysqli_fetch_assoc($result));
+$sql ="UPDATE `bikes` SET `availability` = `availability`+1 WHERE `bike_no`='$row'";
+
+   $result= mysqli_query($conn,$sql);
    $sql = "DELETE FROM `bookings` WHERE `booking_id`='$bookingid'";
    $result = mysqli_query($conn, $sql);
+  
    if($result){
+
+    
       $cancel = true;
    }
  }
@@ -42,7 +52,7 @@ if(isset($_GET['cancel'])){
     <style>
     body {
           /* The image used */
-          background-image: url("bg-images/13.jpg");
+          background-image: url("cust.jpg");
 
          /* Full height */
           height: 100%;
@@ -59,10 +69,78 @@ if(isset($_GET['cancel'])){
    	        width: 230px;
    	        height: 150px;
           }
+          table {
+        -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+    background-color: rgb(200, 225, 230, 0.3);
+      }
+      .dataTables_wrapper .dataTables_length,.dataTables_paginate .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+    
+
+    color: black;
+  }
+  .dataTables_paginate{
+    background-color: whitesmoke;
+    border-radius: 5px;
+  }
+  .active{
+            background-color: grey;
+            color:whitesmoke;
+          }
+          
+          #log{
+            color:orange !important;
+          }
+          #log:hover{
+            color: white !important;
+            background-color: orange;
+          }
          </style>
   </head>
   <body>
-  <?php require 'partials/_nav.php' ?>
+  <?php
+
+if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']=true){
+    $loggedin = true;
+}
+else{
+  $loggedin = false;
+}
+echo'<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">CRED</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <a class="nav-link" href="welcome_cust.php">Activity<span class="sr-only">(current)</span></a>
+      </li>';
+      if(!$loggedin){
+      echo '<li class="nav-item">
+        <a class="nav-link" href="login.php">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="signup.php">SignUp</a>
+      </li>';
+      }
+      if($loggedin){
+      echo'
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Bookings</a>
+      </li>
+      <li class="nav-item">
+        <a id="log" class="nav-link" href="logout.php">Logout</a>
+      </li>';
+      }
+      
+    
+  echo'</div>
+</nav>';
+
+?>
   <?php
   if($cancel){
     echo'<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -75,7 +153,7 @@ if(isset($_GET['cancel'])){
 
  ?>
 
-<h3 class= "text-center my-4" >Your Bookings</h3>
+<h3 class= "text-center my-4" ><u>Your Bookings</u></h3>
 <div class="container my-4">
 
 

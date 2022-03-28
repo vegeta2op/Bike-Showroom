@@ -24,7 +24,8 @@ include 'partials/_dbconnect.php';
     <style>
     body {
           /* The image used */
-          background-image: url("bg-images/15.jpg");
+          background-image: url("cust.jpg");
+          
 
          /* Full height */
           height: 100%;
@@ -41,10 +42,73 @@ include 'partials/_dbconnect.php';
    	        width: 230px;
    	        height: 150px;
           }
+          table{
+            padding: 40px;
+            -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+    background-color: rgb(200, 225, 230, 0.3);
+          
+      }
+      .active{
+            background-color: grey;
+            color:whitesmoke;
+          }
+          
+          #log{
+            color:orange !important;
+          }
+          #log:hover{
+            color: white !important;
+            background-color: orange;
+          }
          </style>
   </head>
   <body>
-  <?php require 'partials/_nav.php' ?>
+  <?php
+
+if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']=true){
+    $loggedin = true;
+}
+else{
+  $loggedin = false;
+}
+echo'<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">CRED</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <a class="nav-link" href="welcome_cust.php">Activity<span class="sr-only">(current)</span></a>
+      </li>';
+      if(!$loggedin){
+      echo '<li class="nav-item">
+        <a class="nav-link" href="login.php">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="signup.php">Signup</a>
+      </li>';
+      }
+      if($loggedin){
+      echo'
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Company</a>
+      </li>
+      <li class="nav-item">
+        <a id="log" class="nav-link" href="logout.php">Logout</a>
+      </li>';
+      }
+      
+    
+  echo'</div>
+</nav>';
+
+?>
+<hr>
+
   
   <h3 class= "text-center my-4" >Available Companies</h3>
   <div class="container">
@@ -78,6 +142,7 @@ include 'partials/_dbconnect.php';
     </table>
   </div>
   <hr>
+  
 
     <!-- Optional JavaScript; choose one of the two! -->
 

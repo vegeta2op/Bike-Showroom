@@ -26,37 +26,111 @@ if($_SESSION['username']=='admin'){
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,500&display=swap" rel="stylesheet">
     <title>Welcome</title>
     <style>
+    
      body {
           /* The image used */
-          background-image: url("bg-images/12.jpg");
+          background-image: url("cust.jpg");
 
          /* Full height */
           height: 100%;
 
           /* Center and scale the image nicely */
-          background-position: center;
+          
           background-repeat: no-repeat;
           background-size: cover;
           font-family: 'Poppins', sans-serif;
          }
+         .active{
+            background-color: grey;
+            color:whitesmoke;
+          }
+          
+          #log{
+            color:orange !important;
+          }
+          #log:hover{
+            color: white !important;
+            background-color: orange;
+          }
           .form-control{
             border-radius:25px;
           }
           .btn{
             border-radius:25px;
           }
+          .card{
+            -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+    background-color: rgb(200, 225, 230, 0.3);
+          }
+          .active{
+            background-color: grey;
+            color:whitesmoke;
+          }
+          
+          #log{
+            color:orange !important;
+          }
+          #log:hover{
+            color: white !important;
+            background-color: orange;
+          }
+          
     </style>
   </head>
   <body>
-  <?php require 'partials/_navcust.php' ?>
+  <?php
+
+if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']=true){
+    $loggedin = true;
+}
+else{
+  $loggedin = false;
+}
+echo'<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">CRED</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="welcome_cust.php">Activity <span class="sr-only">(current)</span></a>
+      </li>';
+      if(!$loggedin){
+      echo '<li class="nav-item">
+        <a class="nav-link" href="login.php">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="signup.php">Signup</a>
+      </li>';
+      }
+      if($loggedin){
+      echo'
+      <li class="nav-item">
+        <a class="nav-link" href="cust_profile.php">Your Profile</a>
+      </li>
+      <li class="nav-item">
+        <a id="log"class="nav-link" href="logout.php">Logout</a>
+      </li>';
+      }
+      
+    
+  echo'</div>
+</nav>';
+
+?>
+  
     <div class="container">
-    <h3 class= "text-center my-4" >Welcome-<?php echo $_SESSION['username']?></h3>
+    <h3 style="color:white" class= "text-center my-4" ><u>Welcome-<?php echo $_SESSION['username']?></u></h3>
     <div class="row">
     <div class="col-md-4">
     <div class="card" style="width: 18rem;">
-  <img src="duc.jpg" class="card-img-top" alt="...">
+  <img src="images/duc.jpg" class="card-img-top" alt="...">
   <div class="card-body my-2">
-    <h5 class="card-title">View and Book Bikes</h5>
+    <h5 class="card-title"><u>View and Book Bikes</u></h5>
     <p class="card-text">View the Bikes available and book them.</p>
     <a href="view_bookbike.php" class="btn btn-primary">View/Book Bikes</a>
   </div>
@@ -65,9 +139,9 @@ if($_SESSION['username']=='admin'){
 
 <div class="col-md-4">
     <div class="card" style="width: 18rem;">
-  <img src="re.jpg" class="card-img-top" alt="...">
+  <img src="dui.jpg" class="card-img-top" alt="...">
   <div class="card-body my-2">
-    <h5 class="card-title">View Companies</h5>
+    <h5 class="card-title"><u>View Companies</u></h5>
     <p class="card-text">View the different companies that are available.</p>
     <a href="view_comp.php" class="btn btn-primary">View Companies</a>
   </div>
@@ -76,9 +150,9 @@ if($_SESSION['username']=='admin'){
 
 <div class="col-md-4">
     <div class="card" style="width: 18rem;">
-  <img src="book.jpg" class="card-img-top" alt="...">
+  <img src="images/bookings.jpg" class="card-img-top" alt="...">
   <div class="card-body my-2">
-    <h5 class="card-title">View your Bookings</h5>
+    <h5 class="card-title"><u>View your Bookings</u></h5>
     <p class="card-text">View the Bike Bookings done by you.</p>
     <a href="yourbookings.php" class="btn btn-primary">View your Bookings</a>
   </div>
@@ -86,6 +160,7 @@ if($_SESSION['username']=='admin'){
 </div>
     </div>
     </div>
+   
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
