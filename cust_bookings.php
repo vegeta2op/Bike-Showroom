@@ -28,7 +28,7 @@ if($_SESSION['username']!='admin'){
     <style>
      body {
           /* The image used */
-          background-image: url("bg-images/13.jpg");
+          background-image: url("ap2.jpg");
 
          /* Full height */
           height: 100%;
@@ -51,12 +51,48 @@ if($_SESSION['username']!='admin'){
    	        width: 230px;
    	        height: 150px;
           }
+          .active{
+            background-color: grey;
+            color:whitesmoke;
+          }
+          .dataTables_wrapper .dataTables_length,.dataTables_paginate .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+    
+
+    color: white;
+  }
+  .dataTables_paginate{
+    background-color: whitesmoke;
+    border-radius: 5px;
+  }
+  table{
+    -webkit-backdrop-filter: blur(8px);
+backdrop-filter: blur(12px);
+overflow: hidden;
+background-color: rgb(200, 225, 230, 0.3);
+  
+}
     </style>
   </head>
   <body>
-  <?php require 'partials/_nav.php' ?>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">CRED</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-<h3 class= "text-center my-4" >Bike Bookings</h3>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+        <a class="nav-link" href="#">Bookings<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="welcome_admin.php">Activity<span class="sr-only">(current)</span></a>
+      </li>
+      
+  </nav>
+ 
+
+<h3 class= "text-center my-4" ><u>Bike Bookings</u></h3>
 <div class="container my-4">
 
 
@@ -112,3 +148,4 @@ if($_SESSION['username']!='admin'){
 
   </body>
 </html>
+

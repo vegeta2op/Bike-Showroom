@@ -28,7 +28,7 @@ if($_SESSION['username']=='admin'){
     <style>
     body {
           /* The image used */
-          background-image: url("bg-images/14.jpg");
+          background-image: url("cust.jpg");
 
          /* Full height */
           height: 100%;
@@ -39,12 +39,65 @@ if($_SESSION['username']=='admin'){
           background-size: cover;
           font-family: 'Poppins', sans-serif;
          }
+         .active{
+            background-color: grey;
+            color:whitesmoke;
+          }
+          
+          #log{
+            color:orange !important;
+          }
+          #log:hover{
+            color: white !important;
+            background-color: orange;
+          }
          </style>
   </head>
   <body>
-  <?php require 'partials/_navcust.php' ?>
+  <?php
 
-<h3 class= "text-center my-4" >Customer Profile</h3>
+if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']=true){
+    $loggedin = true;
+}
+else{
+  $loggedin = false;
+}
+echo'<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">CRED</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <a class="nav-link" href="welcome_cust.php">Activity<span class="sr-only">(current)</span></a>
+      </li>';
+      if(!$loggedin){
+      echo '<li class="nav-item">
+        <a class="nav-link" href="login.php">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="signup.php">Signup</a>
+      </li>';
+      }
+      if($loggedin){
+      echo'
+      <li class="nav-item active">
+        <a class="nav-link" href="cust_profile.php">Your Profile</a>
+      </li>
+      <li class="nav-item">
+        <a id="log" class="nav-link" href="logout.php">Logout</a>
+      </li>';
+      }
+      
+    
+  echo'</div>
+</nav>';
+
+?>
+
+<h3 style="color: white;" class= "text-center my-4" ><u>Customer Profile</u></h3>
 <div class="container my-4">
 
 

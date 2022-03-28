@@ -70,6 +70,7 @@ if($_SESSION['username']!='admin'){
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,500&display=swap" rel="stylesheet">
     <title>Add/Remove Companies</title>
     <style>
+      
     .form-control{
             border-radius:25px;
           }
@@ -79,7 +80,9 @@ if($_SESSION['username']!='admin'){
           body{
             font-family: 'Poppins', sans-serif;
             /* The image used */
-             background-image: url("bg-images/11.jpg");
+             background-image: url("ap4.jpg");
+             
+  
 
              /* Full height */
              height: 100%;
@@ -90,16 +93,85 @@ if($_SESSION['username']!='admin'){
              background-size: cover;
             
           }
+          input[type=text],input[type=file], .form-control{
+            -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+    background-color: rgb(200, 225, 230, 0.3);
+          }
           img{
    	        float: left;
    	        margin: 5px;
    	        width: 230px;
    	        height: 150px;
           }
+          
+          .active{
+            background-color: grey;
+            color:whitesmoke;
+          }
+          
+          #log{
+            color:orange !important;
+          }
+          #log:hover{
+            color: white !important;
+            background-color: orange;
+          }
+      table {
+        -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+    background-color: rgb(200, 225, 230, 0.3);
+      }
+    
+  .dataTables_paginate{
+    background-color: whitesmoke;
+    border-radius: 5px;
+  }
     </style>
   </head>
   <body>
-  <?php require 'partials/_nav.php' ?>
+  <?php 
+if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']=true){
+    $loggedin = true;
+}
+else{
+  $loggedin = false;
+}
+echo'<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">CRED</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Company<span class="sr-only">(current)</span></a>
+      </li>';
+      if(!$loggedin){
+      echo '<li class="nav-item">
+        <a class="nav-link" href="login.php">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="signup.php">Signup</a>
+      </li>';
+      }
+      if($loggedin){
+      echo'\
+      <li class="nav-item">
+        <a class="nav-link" href="welcome_admin.php">Activity</a>
+      </li>
+      <li class="nav-item">
+        <a id="log"class="nav-link" href="logout.php">Logout</a>
+      </li>';
+      }
+      
+    
+  echo'</div>
+</nav>';
+ ?>
   <?php
   if($del){
     echo'<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -128,7 +200,7 @@ if($_SESSION['username']!='admin'){
    </div>';
   }
  ?>
-  <h3 class= "text-center my-4" >Add Company Information</h3>
+  <h3 class= "text-center my-4" ><u>Add Company Information</u></h3>
   <div class="container my-4">
   <form action ="/Bike Showroom/add_removecomp.php" method = "post" style ="display: flex;
     flex-direction: column;
@@ -166,7 +238,7 @@ if($_SESSION['username']!='admin'){
 </div>
 <hr>
 
-<h3 class= "text-center my-4" >Available Company Details</h3>
+<h3 class= "text-center my-4" ><u>Available Company Details</u></h3>
 <div class="container my-4">
 
 
